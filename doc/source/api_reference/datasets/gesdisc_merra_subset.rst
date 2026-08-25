@@ -6,7 +6,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/datasets/gesdisc_merra_subset.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/datasets/gesdisc_merra_subset.py
 
 Calling Sequence
 ################

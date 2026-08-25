@@ -6,7 +6,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/datasets/ucar_gdex_cfsr_surface.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/datasets/ucar_gdex_cfsr_surface.py
 
 Calling Sequence
 ################

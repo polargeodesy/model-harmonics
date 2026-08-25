@@ -47,7 +47,7 @@ Contribute
 
     .. grid-item-card::  Issues
       :text-align: center
-      :link: https://github.com/tsutterley/model-harmonics/issues
+      :link: https://github.com/polargeodesy/model-harmonics/issues
 
       :material-outlined:`bug_report;5em`
 

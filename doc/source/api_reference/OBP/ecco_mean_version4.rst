@@ -7,7 +7,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/OBP/ecco_mean_version4.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/OBP/ecco_mean_version4.py
 
 Calling Sequence
 ################

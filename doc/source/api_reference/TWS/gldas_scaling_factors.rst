@@ -7,7 +7,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/TWS/gldas_scaling_factors.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/TWS/gldas_scaling_factors.py
 
 Calling Sequence
 ################

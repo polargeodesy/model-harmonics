@@ -25,7 +25,7 @@ Background
 ==========
 
 Monthly anomalies in terrestrial water storage are calculated by removing a multi-annual mean (typically 2003 |ndash| 2007).
-Before converting to spherical harmonics, the terrestrial water storage estimates are masked to remove `urbanized <https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/TWS/gldas_mask_vegetation.py>`_, `glaciated <https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/TWS/gldas_mask_arctic.py>`_ and `permafrost <https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/TWS/gldas_mask_permafrost.py>`_ regions.
+Before converting to spherical harmonics, the terrestrial water storage estimates are masked to remove `urbanized <https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/TWS/gldas_mask_vegetation.py>`_, `glaciated <https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/TWS/gldas_mask_arctic.py>`_ and `permafrost <https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/TWS/gldas_mask_permafrost.py>`_ regions.
 Terrestrial water storage anomalies are converted to spherical harmonics following :cite:t:`Wahr:1998hy` [Equation :ref:`4.1 <eq:2.1>`].
 
 .. math::
@@ -56,35 +56,35 @@ Framework
             shape=box
             style="filled"
             color="#7570b3"]
-        M [URL="https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/TWS/gldas_mean_monthly.py"
+        M [URL="https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/TWS/gldas_mean_monthly.py"
             label="Calculate Temporal Mean"
             fontname="Lato"
             fontsize=11
             shape=box
             style="filled"
             color="gray"]
-        R [URL="https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/TWS/gldas_read_monthly.py"
+        R [URL="https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/TWS/gldas_read_monthly.py"
             label="Calculate Monthly Anomalies"
             fontname="Lato"
             fontsize=11
             shape=box
             style="filled"
             color="gray"]
-        H [URL="https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/TWS/gldas_monthly_harmonics.py"
+        H [URL="https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/TWS/gldas_monthly_harmonics.py"
             label="Calculate Spherical Harmonics"
             fontname="Lato"
             fontsize=11
             shape=box
             style="filled"
             color="gray"]
-        S [URL="https://github.com/tsutterley/gravity-toolkit/blob/main/scripts/combine_harmonics.py"
+        S [URL="https://github.com/polargeodesy/gravity-toolkit/blob/main/scripts/combine_harmonics.py"
             label="Spatial Maps"
             fontname="Lato"
             fontsize=11
             shape=box
             style="filled"
             color="#1b9e77"]
-        T [URL="https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/scripts/least_squares_mascon_timeseries.py"
+        T [URL="https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/scripts/least_squares_mascon_timeseries.py"
             label="Time Series"
             fontname="Lato"
             fontsize=11

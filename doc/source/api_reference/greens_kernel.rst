@@ -14,6 +14,6 @@ Calling Sequence
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/greens_kernel.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/greens_kernel.py
 
 .. autofunction:: model_harmonics.greens_kernel

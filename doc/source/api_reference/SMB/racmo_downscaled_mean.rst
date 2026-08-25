@@ -6,7 +6,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/SMB/racmo_downscaled_mean.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/SMB/racmo_downscaled_mean.py
 
 Calling Sequence
 ################

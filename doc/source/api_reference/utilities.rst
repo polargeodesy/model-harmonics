@@ -4,13 +4,13 @@
 
 Download and management utilities for syncing time and auxiliary files
 
- - Adds additional functions to the `GRACE/GRACE-FO  <https://github.com/tsutterley/gravity-toolkit/blob/main/gravity_toolkit/utilities.py>`_ ``gravity_toolkit.utilities`` module
+ - Adds additional functions to the `GRACE/GRACE-FO  <https://github.com/polargeodesy/gravity-toolkit/blob/main/gravity_toolkit/utilities.py>`_ ``gravity_toolkit.utilities`` module
 
  - Can list a directory from the `Goddard Earth Sciences Data and Information Server Center (GES DISC) <https://disc.gsfc.nasa.gov/>`_
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/utilities.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/utilities.py
 
 
 General Methods

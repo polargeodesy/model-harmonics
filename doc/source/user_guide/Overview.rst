@@ -4,7 +4,7 @@ Overview
 
 This documentation is intended to explain how to compute spherical harmonics from model
 outputs for comparing with or correcting time-variable gravity measurements from the
-`GRACE/GRACE-FO <https://github.com/tsutterley/gravity-toolkit>`_ missions.
+`GRACE/GRACE-FO <https://github.com/polargeodesy/gravity-toolkit>`_ missions.
 This software was developed with the goal of supporting science applications for
 time-variable gravity.
 

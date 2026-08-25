@@ -6,7 +6,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/GIA/GIA_uplift_ICESat2_ATL15.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/GIA/GIA_uplift_ICESat2_ATL15.py
 
 Calling Sequence
 ################

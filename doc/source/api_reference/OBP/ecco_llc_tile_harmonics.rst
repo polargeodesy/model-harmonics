@@ -6,7 +6,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/OBP/ecco_llc_tile_harmonics.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/OBP/ecco_llc_tile_harmonics.py
 
 Calling Sequence
 ################

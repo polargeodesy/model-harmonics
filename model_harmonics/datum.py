@@ -116,8 +116,10 @@ class datum(object):
         self.name = ellipsoid.upper()
         self.units = units.upper()
         # validate ellipsoid and units
-        assert self.name in _ellipsoids
-        assert self.units in _units
+        if self.name not in _ellipsoids:
+            raise ValueError(f'Invalid ellipsoid: {self.name}')
+        if self.units not in _units:
+            raise ValueError(f'Invalid units: {self.units}')
 
         # set parameters for ellipsoid
         if self.name in ('CLK66', 'NAD27'):

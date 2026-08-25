@@ -7,7 +7,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/SMB/era5_smb_mean.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/SMB/era5_smb_mean.py
 
 Calling Sequence
 ################

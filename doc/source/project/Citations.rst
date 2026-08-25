@@ -36,8 +36,8 @@ This software is also dependent on other Python packages:
 - `cdsapi: Python client libraries for the CDS Web API <https://pypi.org/project/cdsapi/>`_
 - `ecmwf-datastores-client: programmatic access to the CDS, ADS and EWDS data catalogues <https://ecmwf.github.io/ecmwf-datastores-client>`_
 - `fiona: Python wrapper for vector data access functions from the OGR library <https://fiona.readthedocs.io/en/latest/manual.html>`_
-- `geoid-toolkit: Python utilities for calculating geoid heights from static gravity field coefficients <https://github.com/tsutterley/geoid-toolkit/>`_
-- `gravity-toolkit: Python tools for working with GRACE/GRACE-FO data <https://github.com/tsutterley/gravity-toolkit/>`_
+- `geoid-toolkit: Python utilities for calculating geoid heights from static gravity field coefficients <https://github.com/polargeodesy/geoid-toolkit/>`_
+- `gravity-toolkit: Python tools for working with GRACE/GRACE-FO data <https://github.com/polargeodesy/gravity-toolkit/>`_
 - `h5py: Python interface for Hierarchal Data Format 5 (HDF5) <https://www.h5py.org/>`_
 - `netCDF4: Python interface to the netCDF C library <https://unidata.github.io/netcdf4-python/>`_
 - `pyproj: Python interface to PROJ library <https://pypi.org/project/pyproj/>`_

@@ -2,7 +2,7 @@
 
 Python tools for obtaining and working with model synthetic spherical harmonic coefficients for comparing with data from the the NASA/DLR Gravity Recovery and Climate Experiment (GRACE) and the NASA/GFZ Gravity Recovery and Climate Experiment Follow-On (GRACE-FO) missions
 
-These are extension routines for the set of [gravity-toolkit](https://github.com/tsutterley/gravity-toolkit) tools
+These are extension routines for the set of [gravity-toolkit](https://github.com/polargeodesy/gravity-toolkit) tools
 
 
 ## About
@@ -13,7 +13,7 @@ These are extension routines for the set of [gravity-toolkit](https://github.com
     <td>
         <a href="https://pypi.python.org/pypi/model-harmonics/" alt="PyPI"><img src="https://img.shields.io/pypi/v/model-harmonics.svg"></a>
         <a href="https://anaconda.org/conda-forge/model-harmonics" alt="conda-forge"><img src="https://img.shields.io/conda/vn/conda-forge/model-harmonics"></a>
-        <a href="https://github.com/tsutterley/model-harmonics/releases/latest" alt="commits-since"><img src="https://img.shields.io/github/commits-since/tsutterley/model-harmonics/latest"></a>
+        <a href="https://github.com/polargeodesy/model-harmonics/releases/latest" alt="commits-since"><img src="https://img.shields.io/github/commits-since/polargeodesy/model-harmonics/latest"></a>
     </td>
   </tr>
   <tr>
@@ -26,14 +26,14 @@ These are extension routines for the set of [gravity-toolkit](https://github.com
     <td><b>Tests:</b></td>
     <td>
         <a href="https://model-harmonics.readthedocs.io/en/latest/?badge=latest" alt="Documentation Status"><img src="https://readthedocs.org/projects/model-harmonics/badge/?version=latest"></a>
-        <a href="https://github.com/tsutterley/model-harmonics/actions/workflows/python-request.yml" alt="Build"><img src="https://github.com/tsutterley/model-harmonics/actions/workflows/python-request.yml/badge.svg"></a>
-        <a href="https://github.com/tsutterley/model-harmonics/actions/workflows/ruff-format.yml" alt="Ruff"><img src="https://github.com/tsutterley/model-harmonics/actions/workflows/ruff-format.yml/badge.svg"></a>
+        <a href="https://github.com/polargeodesy/model-harmonics/actions/workflows/python-request.yml" alt="Build"><img src="https://github.com/polargeodesy/model-harmonics/actions/workflows/python-request.yml/badge.svg"></a>
+        <a href="https://github.com/polargeodesy/model-harmonics/actions/workflows/ruff-format.yml" alt="Ruff"><img src="https://github.com/polargeodesy/model-harmonics/actions/workflows/ruff-format.yml/badge.svg"></a>
     </td>
   </tr>
   <tr>
     <td><b>License:</b></td>
     <td>
-        <a href="https://github.com/tsutterley/model-harmonics/blob/main/LICENSE" alt="License"><img src="https://img.shields.io/github/license/tsutterley/model-harmonics"></a>
+        <a href="https://github.com/polargeodesy/model-harmonics/blob/main/LICENSE" alt="License"><img src="https://img.shields.io/github/license/polargeodesy/model-harmonics"></a>
     </td>
   </tr>
 </table>
@@ -67,7 +67,7 @@ mamba install -c conda-forge model-harmonics
 Development version from GitHub:
 
 ```bash
-python3 -m pip install git+https://github.com/tsutterley/model-harmonics.git
+python3 -m pip install git+https://github.com/polargeodesy/model-harmonics.git
 ```
 
 ### Running with Pixi
@@ -78,7 +78,7 @@ Alternatively, you can use [Pixi](https://pixi.sh/) for a streamlined workspace 
 2. Clone the project repository:
 
 ```bash
-git clone https://github.com/tsutterley/model-harmonics.git
+git clone https://github.com/polargeodesy/model-harmonics.git
 ```
 
 3. Move into the `model-harmonics` directory
@@ -110,8 +110,8 @@ This will automatically create the environment, install all dependencies, and op
 - [cdsapi: Python client libraries for the CDS Web API](https://pypi.org/project/cdsapi/)
 - [ecmwf-datastores-client: programmatic access to the CDS, ADS and EWDS data catalogues](https://ecmwf.github.io/ecmwf-datastores-client)
 - [fiona: Python wrapper for vector data access functions from the OGR library](https://fiona.readthedocs.io/en/latest/manual.html)
-- [geoid-toolkit: Python utilities for calculating geoid heights from static gravity field coefficients](https://github.com/tsutterley/geoid-toolkit/)
-- [gravity-toolkit: Python tools for working with GRACE/GRACE-FO data](https://github.com/tsutterley/gravity-toolkit/)
+- [geoid-toolkit: Python utilities for calculating geoid heights from static gravity field coefficients](https://github.com/polargeodesy/geoid-toolkit/)
+- [gravity-toolkit: Python tools for working with GRACE/GRACE-FO data](https://github.com/polargeodesy/gravity-toolkit/)
 - [h5py: Python interface for Hierarchal Data Format 5 (HDF5)](https://www.h5py.org/)
 - [netCDF4: Python interface to the netCDF C library](https://unidata.github.io/netcdf4-python/)
 - [pyproj: Python interface to PROJ library](https://pypi.org/project/pyproj/)
@@ -121,10 +121,10 @@ This will automatically create the environment, install all dependencies, and op
 ## Download
 
 The program homepage is:  
-<https://github.com/tsutterley/model-harmonics>
+<https://github.com/polargeodesy/model-harmonics>
 
 A zip archive of the latest version is available directly at:  
-<https://github.com/tsutterley/model-harmonics/archive/main.zip>
+<https://github.com/polargeodesy/model-harmonics/archive/main.zip>
 
 ## Disclaimer
 
@@ -137,7 +137,7 @@ The software is provided here for your convenience but *with no guarantees whats
 ## Contributing
 
 This project contains work and contributions from the [scientific community](./CONTRIBUTORS.md).
-If you would like to contribute to the project, please have a look at the [contribution guidelines](./doc/source/getting_started/Contributing.rst), [open issues](https://github.com/tsutterley/model-harmonics/issues) and [discussions board](https://github.com/tsutterley/model-harmonics/discussions).
+If you would like to contribute to the project, please have a look at the [contribution guidelines](./doc/source/getting_started/Contributing.rst), [open issues](https://github.com/polargeodesy/model-harmonics/issues) and [discussions board](https://github.com/polargeodesy/model-harmonics/discussions).
 
 ## References
 

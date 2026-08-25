@@ -56,8 +56,8 @@ classifiers=[
 [project.urls]
 Homepage = "https://model-harmonics.readthedocs.io"
 Documentation = "https://model-harmonics.readthedocs.io"
-Repository = "https://github.com/tsutterley/model-harmonics"
-Issues = "https://github.com/tsutterley/model-harmonics/issues"
+Repository = "https://github.com/polargeodesy/model-harmonics"
+Issues = "https://github.com/polargeodesy/model-harmonics/issues"
 
 [project.optional-dependencies]
 doc = ["docutils", "graphviz", "myst-nb", "numpydoc", "sphinx", "sphinx-argparse>=0.4", "sphinxcontrib-bibtex", "sphinx-design", "sphinx_rtd_theme"]

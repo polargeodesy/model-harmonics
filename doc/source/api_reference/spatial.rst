@@ -4,11 +4,11 @@
 
 Functions for reading, writing and processing spatial data
 
-- Extends the `GRACE/GRACE-FO <https://github.com/tsutterley/gravity-toolkit/blob/main/gravity_toolkit/spatial.py>`_ ``gravity_toolkit.spatial`` module
+- Extends the `GRACE/GRACE-FO <https://github.com/polargeodesy/gravity-toolkit/blob/main/gravity_toolkit/spatial.py>`_ ``gravity_toolkit.spatial`` module
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/spatial.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/spatial.py
 
 
 General Methods

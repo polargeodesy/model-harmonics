@@ -179,15 +179,16 @@ def ecco_read_realtime(
         # for each subdirectory
         for j in subdir:
             # find the input file within the subdirectory
-            # skip subdirectory if file not found
             try:
                 (input_file,) = [
                     fi
                     for fi in j.iterdir()
                     if bool(re.match(r'OBP_(.*?).cdf', fi.name))
                 ]
-                assert input_file.exists()
-            except:
+            except ValueError:
+                continue
+            # skip subdirectory if file not found
+            if not input_file.exists():
                 continue
 
             # Open ECCO CDF datafile for reading

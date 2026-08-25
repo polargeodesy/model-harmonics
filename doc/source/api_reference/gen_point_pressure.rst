@@ -14,6 +14,6 @@ Calling Sequence
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/gen_point_pressure.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/gen_point_pressure.py
 
 .. autofunction:: model_harmonics.gen_point_pressure

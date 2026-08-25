@@ -6,7 +6,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/datasets/cds_land_retrieve.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/datasets/cds_land_retrieve.py
 
 .. argparse::
     :module: model_harmonics.datasets.cds_land_retrieve

@@ -7,7 +7,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/datasets/ucar_gdex_jra55_surface.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/datasets/ucar_gdex_jra55_surface.py
 
 Calling Sequence
 ################

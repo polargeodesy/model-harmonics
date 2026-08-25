@@ -40,7 +40,7 @@ identifiers:
     value: 10.5281/zenodo.5156964
     description: Persistent identifier for model-harmonics
   - type: url
-    value: https://github.com/tsutterley/model-harmonics
+    value: https://github.com/polargeodesy/model-harmonics
     description: GitHub repository for model-harmonics
   - type: url
     value: https://pypi.org/project/model-harmonics
@@ -48,7 +48,7 @@ identifiers:
   - type: url
     value: https://anaconda.org/conda-forge/model-harmonics
     description: model-harmonics on conda-forge
-repository-code: 'https://github.com/tsutterley/model-harmonics'
+repository-code: 'https://github.com/polargeodesy/model-harmonics'
 url: 'https://model-harmonics.readthedocs.io'
 doi: "10.5281/zenodo.5156964"
 
@@ -56,7 +56,7 @@ references:
   - type: software
     title: "gravity-toolkit"
     version: 1.2
-    repository-code: "https://github.com/tsutterley/gravity-toolkit"
+    repository-code: "https://github.com/polargeodesy/gravity-toolkit"
     authors:
       - given-names: Yara
         family-names: Mohajerani
@@ -67,7 +67,7 @@ references:
   - type: software
     title: "geoid-toolkit"
     version: 1.1
-    repository-code: "https://github.com/tsutterley/geoid-toolkit"
+    repository-code: "https://github.com/polargeodesy/geoid-toolkit"
     authors:
       - given-names: Tyler
         family-names: Sutterley

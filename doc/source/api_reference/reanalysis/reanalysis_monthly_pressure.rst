@@ -6,7 +6,7 @@ Reads daily atmospheric pressure fields from reanalysis and outputs monthly aver
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/reanalysis/reanalysis_monthly_pressure.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/reanalysis/reanalysis_monthly_pressure.py
 
 Calling Sequence
 ################

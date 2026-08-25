@@ -14,7 +14,7 @@ Calling Sequence
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/interpolate.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/interpolate.py
 
 .. autofunction:: model_harmonics.interpolate.ocean_depth
 

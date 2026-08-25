@@ -6,7 +6,7 @@
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/OBP/gebco_ocean_depth.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/OBP/gebco_ocean_depth.py
 
 .. argparse::
     :module: model_harmonics.OBP.gebco_ocean_depth

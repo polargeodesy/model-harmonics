@@ -17,6 +17,6 @@ Calling Sequence
 
 `Source code`__
 
-.. __: https://github.com/tsutterley/model-harmonics/blob/main/model_harmonics/gen_atmosphere_stokes.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/gen_atmosphere_stokes.py
 
 .. autofunction:: model_harmonics.gen_atmosphere_stokes
