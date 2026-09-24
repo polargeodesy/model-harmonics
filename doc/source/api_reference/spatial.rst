@@ -16,6 +16,8 @@ General Methods
 
 .. autofunction:: model_harmonics.spatial.validate_netCDF4
 
+.. autofunction:: model_harmonics.spatial.from_netCDF4
+
 .. autofunction:: model_harmonics.spatial.to_netCDF4
 
 .. autoclass:: model_harmonics.spatial.grib

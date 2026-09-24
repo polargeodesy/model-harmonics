@@ -9,6 +9,7 @@ PYTHON DEPENDENCIES:
     spatial.py: spatial data class for reading, writing and processing data
 
 UPDATE HISTORY:
+    Updated 09/2026: added reader for structured netCDF4 files
     Updated 07/2026: add HTML representations of mosaic and raster classes
         add geocentric_radius function to calculate the radius at coordinates
         add grib class for reading GRIB formatted data from reanalysis products
@@ -87,6 +88,63 @@ def validate_netCDF4(filename: str | pathlib.Path, struct: dict = {}) -> bool:
         msg = f'File {str(filename)} is corrupt or invalid: {exc}'
         logger.debug(msg)
         return False
+
+
+# PURPOSE: read a variable group from a netCDF4 file
+def from_netCDF4(
+    filename: str | pathlib.Path,
+    struct: dict,
+    mode: str = 'r',
+):
+    """
+    Read structured data fields from a netCDF4 file
+
+    Parameters
+    ----------
+    filename: str or pathlib.Path
+        full path of input netCDF4 file
+    struct: dict
+        dictionary containing dimensions and variables
+    mode: str, default 'r'
+        file mode for reading netCDF4 file
+    kwargs: dict
+        additional keyword arguments for ``netCDF4.Dataset``
+
+    Returns
+    -------
+    output: dict
+        dictionary containing output data arrays
+    attributes: dict
+        dictionary containing file-level and variable attributes
+    """
+    # get logger
+    logger = logging.getLogger(__name__)
+    # output variable and attributes dictionaries
+    output = {}
+    attributes = dict(ROOT={})
+    # join dimension and variables to be read
+    fields = [*struct['dimensions'], *struct['variables']]
+    with netCDF4.Dataset(filename, mode=mode) as fileID:
+        # netCDF4 structure information
+        logger.debug(fileID.filepath())
+        # get root attributes
+        for att_name in fileID.ncattrs():
+            attributes['ROOT'][att_name] = fileID.getncattr(att_name)
+        # get select variables
+        for field in fields:
+            # check if reading from root group or sub-group
+            group, _, key = field.rpartition('/')
+            ncf = fileID.groups[group] if group else fileID
+            # get variable
+            val = ncf.variables[key]
+            output[key] = val[:]
+            # get attributes
+            attributes[key] = {}
+            for att_name in val.ncattrs():
+                attributes[key][att_name] = val.getncattr(att_name)
+    # return the data and attributes
+    logger.debug(list(output.keys()))
+    return (output, attributes)
 
 
 # PURPOSE: write structured data fields to a netCDF4 file
