@@ -25,6 +25,7 @@ PROGRAM DEPENDENCIES:
 
 UPDATE HISTORY:
     Updated 09/2026: use struct dictionary to define netCDF4 parameters
+        add standard errors about mean to the output netCDF4 files
     Updated 01/2020: don't use a smoothing factor in spline interpolation
     Updated 10/2019: check each variable if above threshold
     Written 10/2018
@@ -35,6 +36,7 @@ from __future__ import print_function
 import sys
 import os
 import re
+import copy
 import logging
 import pathlib
 import argparse
@@ -55,31 +57,30 @@ def info(args):
     logger.info(f'process id: {os.getpid():d}')
 
 
-def monthly_means(JD, var, percent=75.0, k=1, s=0):
+def monthly_means(JD, var):
     # convert Julian dates to calendar
     YY, MM, DD, hh, mm, ss = gravtk.time.convert_julian(JD, format='tuple')
     dpm = gravtk.time.calendar_days(YY[0])
     # allocate for output data
     output = np.full((1, 12), np.nan)
+    stderr = np.full((1, 12), np.nan)
+    percent = np.zeros((1, 12))
     for m in range(12):
-        # only calculate if more than threhold # points are in month
-        threshold = dpm[m] * (percent / 100.0) / np.abs(JD[1] - JD[0])
         # find data for month
         inmonth = MM == (m + 1)
-        isnan = np.isnan(var[0, :]) & inmonth
         valid = np.isfinite(var[0, :]) & inmonth
-        # calculate derived atmospheric parameters
-        if np.sum(valid) >= threshold:
-            # use spline interpolation to fill gaps
-            SPL = scipy.interpolate.UnivariateSpline(
-                JD[valid], var[0, valid], k=k, s=s
-            )
-            # calculate interpolated values
-            var[0, isnan] = SPL(JD[isnan])
-            # calculate mean of derived parameters
-            output[0, m] = np.mean(var[0, inmonth])
-    # return the monthly mean
-    return output
+        count = np.sum(valid)
+        # total number of possible points in month
+        total = dpm[m] / np.abs(JD[1] - JD[0])
+        if count > 0:
+            # calculate percent coverage
+            percent[0, m] = 100.0 * count / total
+            # calculate mean of atmospheric parameters
+            output[0, m] = np.mean(var[0, valid])
+            # calculate standard error of the mean
+            stderr[0, m] = np.std(var[0, valid]) / np.sqrt(count)
+    # return the monthly mean and standard errors about mean
+    return output, stderr, percent
 
 
 # PURPOSE: calculate the monthly mean temperature, humidity and pressure
@@ -127,7 +128,7 @@ def aws_station_monthly(
         directories = [d for d in directories if d.name in years]
 
     # for each year to run
-    for i, d in enumerate(directories):
+    for d in sorted(directories):
         # find station data
         files = [f for f in d.iterdir() if rx.match(f.name)]
         # for each file
@@ -159,15 +160,34 @@ def aws_station_monthly(
             Tave = np.datetime64(f'{year}-01-15') + cumulative_days
             # convert datetimes to delta times
             output['time'] = gravtk.time.convert_datetime(Tave, epoch=epoch)
-            # calculate monthly means
+            # copy the structure dictionary for output
+            mapping = copy.deepcopy(struct)
+            # for each output variable (observed and derived)
             for var in variables:
-                output[var] = monthly_means(JD, dinput[var])
+                # calculate monthly means and standard errors
+                output[var], stderr, percent = monthly_means(JD, dinput[var])
+                # copy standard error variables to output
+                output[f'sigmas/{var}'] = stderr.copy()
+                # copy attributes and update variable long name
+                attributes[f'sigmas/{var}'] = copy.deepcopy(attributes[var])
+                long_name = attributes[var].get('long_name', 'variable')
+                attributes[f'sigmas/{var}']['long_name'] = (
+                    f'standard error in {long_name} about mean'
+                )
+                # update the output structure dictionary to add stderr
+                mapping['variables'][f'sigmas/{var}'] = ('station', 'time')
+                # copy percent coverage to output variables
+                output[f'coverage/{var}'] = percent.copy()
+                attributes[f'coverage/{var}'] = dict(
+                    units='%', long_name=f'temporal coverage of {var}'
+                )
+                mapping['variables'][f'coverage/{var}'] = ('station', 'time')
             # output data to netCDF4 file
             filename = d.joinpath(f'{PROVIDER}_AWS_Tave_{name}_{year}.nc')
             logger.info(filename)
             # write data to netCDF4 file
             mdlhmc.spatial.to_netCDF4(
-                filename, output, attributes, struct, mode='w'
+                filename, output, attributes, mapping, mode='w'
             )
             # change the permissions mode
             filename.chmod(mode=MODE)

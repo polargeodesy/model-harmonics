@@ -10,6 +10,7 @@ PYTHON DEPENDENCIES:
 
 UPDATE HISTORY:
     Updated 09/2026: added reader for structured netCDF4 files
+        can write structured netCDF4 files with hierarchical groups
     Updated 07/2026: add HTML representations of mosaic and raster classes
         add geocentric_radius function to calculate the radius at coordinates
         add grib class for reading GRIB formatted data from reanalysis products
@@ -194,22 +195,32 @@ def to_netCDF4(
 
     # defining the netCDF4 variables
     for var, dimensions in struct['variables'].items():
+        # check if writing to root group or sub-group
+        group, _, key = var.rpartition('/')
+        if group and group not in fileID.groups:
+            ncf = fileID.createGroup(group)
+        elif group:
+            ncf = fileID.groups[group]
+        else:
+            ncf = fileID
+        # check if output variable as fill value
+        # check if output variable has dimensions
         if hasattr(output[var], 'fill_value'):
-            nc[var] = fileID.createVariable(
-                var,
+            nc[var] = ncf.createVariable(
+                key,
                 output[var].dtype,
                 dimensions,
                 fill_value=output[var].fill_value,
                 zlib=True,
             )
         elif output[var].shape:
-            nc[var] = fileID.createVariable(
-                var,
+            nc[var] = ncf.createVariable(
+                key,
                 output[var].dtype,
                 dimensions,
             )
         else:
-            nc[var] = fileID.createVariable(var, output[var].dtype, ())
+            nc[var] = ncf.createVariable(key, output[var].dtype, ())
         # add data to netCDF4 variable
         nc[var][:] = output[var].copy()
         # set netCDF4 attributes for variables
