@@ -102,6 +102,7 @@ grib = ["cython", "eccodes", "pygrib"]
 "ucar_gdex_jra55_surface.py" = "model_harmonics.datasets.ucar_gdex_jra55_surface:main"
 # Atmospheric Circulation (reanalysis)
 "aws_station_monthly.py" = "model_harmonics.reanalysis.aws_station_monthly:main"
+"compare_aws_stations.py" = "model_harmonics.reanalysis.compare_aws_stations:main"
 "model_level_coefficients.py" = "model_harmonics.reanalysis.model_level_coefficients:main"
 "reanalysis_atmospheric_harmonics.py" = "model_harmonics.reanalysis.reanalysis_atmospheric_harmonics:main"
 "reanalysis_geopotential_heights.py" = "model_harmonics.reanalysis.reanalysis_geopotential_heights:main"

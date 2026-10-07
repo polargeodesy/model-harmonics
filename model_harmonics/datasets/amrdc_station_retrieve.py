@@ -10,7 +10,7 @@ Downloads automatic weather station (AWS) data from the
 
 COMMAND LINE OPTIONS:
     --help: list the command line options
-    -D X, --directory X: Working data directory
+    -A X, --aws-directory X: Working data directory for AWS data
     -Y X, --year X: years to download
     -V, --verbose: Output information for each output file
     -M X, --mode X: Permission mode of directories and files
@@ -26,6 +26,7 @@ PROGRAM DEPENDENCIES:
     utilities.py: download and management utilities for files
 
 UPDATE HISTORY:
+    Updated 10/2026: change the command line argument for AWS directory
     Updated 09/2026: updated for the new data center APIs
         use struct dictionary to define netCDF4 parameters
     Updated 10/2019: python3 compatibility url request
@@ -460,11 +461,11 @@ def arguments():
     parser.convert_arg_line_to_args = gravtk.utilities.convert_arg_line_to_args
     # working data directory
     parser.add_argument(
-        '--directory',
-        '-D',
+        '--aws-directory',
+        '-A',
         type=pathlib.Path,
         default=pathlib.Path.cwd(),
-        help='Working data directory',
+        help='Working data directory for AWS data',
     )
     # years to run
     parser.add_argument(
@@ -506,7 +507,11 @@ def main():
         __name__, level=loglevels[args.verbose]
     )
     # run download program
-    amrdc_station_retrieve(args.directory, YEAR=args.year, MODE=args.mode)
+    amrdc_station_retrieve(
+        args.aws_directory,
+        YEAR=args.year,
+        MODE=args.mode,
+    )
 
 
 # run main program

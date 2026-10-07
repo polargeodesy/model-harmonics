@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 spatial.py
-Written by Tyler Sutterley (07/2026)
+Written by Tyler Sutterley (10/2026)
 Functions for reading, writing and processing spatial data
 Extends gravity_toolkit spatial module adding raster support
 
@@ -9,6 +9,7 @@ PYTHON DEPENDENCIES:
     spatial.py: spatial data class for reading, writing and processing data
 
 UPDATE HISTORY:
+    Updated 10/2026: find fill values and convert arrays to masked arrays
     Updated 09/2026: added reader for structured netCDF4 files
         can write structured netCDF4 files with hierarchical groups
     Updated 07/2026: add HTML representations of mosaic and raster classes
@@ -125,6 +126,8 @@ def from_netCDF4(
     attributes = dict(ROOT={})
     # join dimension and variables to be read
     fields = [*struct['dimensions'], *struct['variables']]
+    # fill value attributes
+    fill_values = ('fill_value', '_FillValue', 'missing_value')
     with netCDF4.Dataset(filename, mode=mode) as fileID:
         # netCDF4 structure information
         logger.debug(fileID.filepath())
@@ -142,6 +145,12 @@ def from_netCDF4(
             # get attributes
             attributes[key] = {}
             for att_name in val.ncattrs():
+                # convert data to masked array if there is a fill value
+                if att_name in fill_values:
+                    fv = val.getncattr(att_name)
+                    output[key] = np.ma.masked_equal(output[key], fv)
+                    continue
+                # extract attribute
                 attributes[key][att_name] = val.getncattr(att_name)
     # return the data and attributes
     logger.debug(list(output.keys()))

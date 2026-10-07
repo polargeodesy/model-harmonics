@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 """
 aws_station_monthly.py
-Written by Tyler Sutterley (09/2026)
+Written by Tyler Sutterley (10/2026)
 
 Calculates monthly means of automatic weather station (AWS) data
 
 COMMAND LINE OPTIONS:
     --help: list the command line options
-    -D X, --directory X: Working data directory
+    -A X, --aws-directory X: Working data directory for AWS data
     -P X, --provider X: AWS data provider
     -Y X, --year X: years to run
     -V, --verbose: Output information for each output file
@@ -24,6 +24,8 @@ PROGRAM DEPENDENCIES:
     utilities.py: download and management utilities for files
 
 UPDATE HISTORY:
+    Updated 10/2026: change the command line argument for AWS directory
+        add attributes for annual station statistics
     Updated 09/2026: use struct dictionary to define netCDF4 parameters
         add standard errors about mean to the output netCDF4 files
     Updated 01/2020: don't use a smoothing factor in spline interpolation
@@ -166,6 +168,22 @@ def aws_station_monthly(
             for var in variables:
                 # calculate monthly means and standard errors
                 output[var], stderr, percent = monthly_means(JD, dinput[var])
+                # calculate annual statistics
+                isfinite = np.isfinite(dinput[var])
+                valid = dinput[var][isfinite]
+                if np.any(isfinite):
+                    MN = np.mean(valid)
+                    STD = np.std(valid)
+                    Q1, MED, Q3 = np.percentile(valid, [25, 50, 75])
+                else:
+                    MN, MED = 0.0, 0.0
+                    STD, Q1, Q3 = np.nan, np.nan, np.nan
+                # add annual statistics to attributes
+                attributes[var]['mean'] = MN
+                attributes[var]['median'] = MED
+                attributes[var]['stdev'] = STD
+                attributes[var]['IQR'] = Q3 - Q1
+                attributes[var]['count'] = len(valid)
                 # copy standard error variables to output
                 output[f'sigmas/{var}'] = stderr.copy()
                 # copy attributes and update variable long name
@@ -204,11 +222,11 @@ def arguments():
     parser.convert_arg_line_to_args = gravtk.utilities.convert_arg_line_to_args
     # working data directory
     parser.add_argument(
-        '--directory',
-        '-D',
+        '--aws-directory',
+        '-A',
         type=pathlib.Path,
         default=pathlib.Path.cwd(),
-        help='Working data directory',
+        help='Working data directory for AWS data',
     )
     # AWS data provider
     choices = ['AMRC', 'AMRDC']
@@ -261,7 +279,7 @@ def main():
     )
     # run program
     aws_station_monthly(
-        args.directory,
+        args.aws_directory,
         PROVIDER=args.provider,
         YEAR=args.year,
         MODE=args.mode,
