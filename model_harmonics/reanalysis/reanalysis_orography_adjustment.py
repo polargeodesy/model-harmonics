@@ -135,6 +135,8 @@ def reanalysis_orography_adjustment(
         input_invariant_file = 'MERRA2_101.const_2d_asm_Nx.00000000.nc4'
         # coordinate parameters file
         input_coordinate_file = 'MERRA2_101.const_3d_coords_Nx.00000000.nc4'
+        # surface pressure file format
+        input_pressure_file = 'MERRA2_{0}.tavgM_2d_slv_Nx.{1}{2}.SUB.nc'
         # regular expression pattern for finding files
         regex_pattern = r'MERRA2_(\d+).tavgM_3d_asm_Nv.({0})(\d{{2}}).SUB.nc$'
         # output file format
@@ -313,8 +315,13 @@ def reanalysis_orography_adjustment(
             output_file = ddir.joinpath(FILENAME)
             # specific humidity from same file as temperature
             fid[1] = fid[0]
-            # read surface pressure
-            pressure = fid[0].variables[VARNAME][:]
+            # read input surface pressure data
+            pressure_file = ddir.joinpath(
+                input_pressure_file.format(MOD, YEAR, MONTH)
+            )
+            logger.debug(str(pressure_file))
+            with netCDF4.Dataset(pressure_file, 'r') as fid[2]:
+                pressure = fid[2].variables[VARNAME][:]
         elif MODEL in ('ERA-Interim', 'ERA5'):
             # extract year from temperature files
             (YEAR,) = rx.findall(temperature_file.name)
