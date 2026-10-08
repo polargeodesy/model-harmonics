@@ -92,10 +92,6 @@ def expected_pressure(Z, H, T, P, Ev, Tv):
         Orthometric height
     T: np.ndarray
         Air temperature
-    T: np.ndarray
-        Air temperature
-    T: np.ndarray
-        Air temperature
     P: np.ndarray
         Surface pressure
     Ev: np.ndarray
@@ -124,17 +120,19 @@ def expected_pressure(Z, H, T, P, Ev, Tv):
     Rc = 29.27
     # temperature in kelvin
     Tk = T + 273.15
+    # height change from station elevation to model orthometric height
+    dZ = Z - H
     # use dry-adiabatic lapse rate for most stations
     # use average adiabatic lapse rate for low-level stations
     # set reduction constant for low-level stations
     if Z > 50:
-        LRadj = LRdry * Z / 2.0
+        LRadj = LRdry * dZ / 2.0
         Padj = np.copy(P)
     else:
-        LRadj = LRave * Z / 2.0
-        Padj = P * (1.0 + Z / (Rc * Tv))
+        LRadj = LRave * dZ / 2.0
+        Padj = P * (1.0 + dZ / (Rc * Tv))
     # expected pressure for station at model orthometric height
-    Pexp = Padj * np.exp((gamma * Z) / (Rd * (Tk + LRadj + Ev * Ch)))
+    Pexp = Padj * np.exp((gamma * dZ) / (Rd * (Tk + LRadj + Ev * Ch)))
     return Pexp
 
 
