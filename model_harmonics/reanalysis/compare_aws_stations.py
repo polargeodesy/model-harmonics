@@ -387,9 +387,7 @@ def compare_aws_stations(
             total = 0.0
             count = 0
             for Y in range(RANGE[0], RANGE[1] + 1):
-                dm = DIRECTORY.joinpath(
-                    str(Y),
-                )
+                dm = DIRECTORY.joinpath(str(Y))
                 fm = dm.joinpath(f'{PROVIDER}_AWS_Tave_{name}_{Y:4d}.nc')
                 if fm.exists():
                     m, a = mdlhmc.spatial.from_netCDF4(fm, struct)
