@@ -1,6 +1,6 @@
-==============================
-``weather_station_monthly.py``
-==============================
+===============================
+``compare_weather_stations.py``
+===============================
 
 - Calculates monthly means of automatic weather station (AWS) data
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-aws_station_monthly.py
+weather_station_monthly.py
 Written by Tyler Sutterley (10/2026)
 
 Calculates monthly means of automatic weather station (AWS) data
@@ -86,7 +86,7 @@ def monthly_means(JD, var):
 
 
 # PURPOSE: calculate the monthly mean temperature, humidity and pressure
-def aws_station_monthly(
+def weather_station_monthly(
     base_dir,
     PROVIDER='AMRDC',
     YEAR=None,
@@ -278,7 +278,7 @@ def main():
         __name__, level=loglevels[args.verbose]
     )
     # run program
-    aws_station_monthly(
+    weather_station_monthly(
         args.aws_directory,
         PROVIDER=args.provider,
         YEAR=args.year,

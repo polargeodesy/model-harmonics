@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """
-compare_aws_stations.py
+compare_weather_stations.py
 Written by Tyler Sutterley (09/2026)
 
 Calculates differences between reanalysis surface pressures and the
-    monthly mean surface pressures from AWS stations
+    monthly mean surface pressures from weather stations
 
 https://www.wmo.int/pages/prog/www/IMOP/meetings/SI/ET-Stand-1/Doc-10_Pressure-red.pdf
 https://library.wmo.int/doc_num.php?explnum_id=3150
@@ -137,7 +137,7 @@ def expected_pressure(Z, H, T, P, Ev, Tv):
 
 
 # PURPOSE: calculate the monthly mean temperature, humidity and pressure
-def compare_aws_stations(
+def compare_weather_stations(
     base_dir,
     MODEL=None,
     DIRECTORY=None,
@@ -482,7 +482,7 @@ def ncdf_invariant(FILENAME, ZNAME):
 def arguments():
     parser = argparse.ArgumentParser(
         description="""Calculates differences between reanalysis surface
-            pressures and monthly mean surface pressures from AWS stations
+            pressures and monthly mean surface pressures from weather stations
             """,
         fromfile_prefix_chars='@',
     )
@@ -578,7 +578,7 @@ def main():
         __name__, level=loglevels[args.verbose]
     )
     # run program
-    compare_aws_stations(
+    compare_weather_stations(
         args.directory,
         args.model,
         PROVIDER=args.provider,
