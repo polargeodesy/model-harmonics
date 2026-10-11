@@ -45,6 +45,7 @@ Framework
     :align: center
 
     digraph {
+        bgcolor="transparent";
         E [label="MERRA-2 Reanalysis\nModel Outputs"
             fontname="Lato"
             fontsize=11

@@ -140,6 +140,7 @@ Framework
     :align: center
 
     digraph {
+        bgcolor="transparent";
         E [label="Reanalysis Surface Pressure"
             fontname="Lato"
             fontsize=11
@@ -200,6 +201,7 @@ Framework
     :align: center
 
     digraph {
+        bgcolor="transparent";
         E [label="Reanalysis Temperature\nand Specific Humidity"
             fontname="Lato"
             fontsize=11
