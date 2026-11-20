@@ -1,20 +1,20 @@
-==========================
-``aws_station_monthly.py``
-==========================
+==============================
+``weather_station_monthly.py``
+==============================
 
 - Calculates monthly means of automatic weather station (AWS) data
 
 `Source code`__
 
-.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/reanalysis/aws_station_monthly.py
+.. __: https://github.com/polargeodesy/model-harmonics/blob/main/model_harmonics/reanalysis/weather_station_monthly.py
 
 Calling Sequence
 ################
 
 .. argparse::
-    :module: model_harmonics.reanalysis.aws_station_monthly
+    :module: model_harmonics.reanalysis.weather_station_monthly
     :func: arguments
-    :prog: aws_station_monthly.py
+    :prog: weather_station_monthly.py
     :nodescription:
     :nodefault:
 

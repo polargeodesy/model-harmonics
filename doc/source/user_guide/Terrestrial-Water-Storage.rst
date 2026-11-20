@@ -44,6 +44,7 @@ Framework
     :align: center
 
     digraph {
+        bgcolor="transparent";
         E [label="GLDAS Land Surface\nModel Outputs"
             fontname="Lato"
             fontsize=11

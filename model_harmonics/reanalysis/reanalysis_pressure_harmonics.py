@@ -581,7 +581,7 @@ def ncdf_expver(fileID, VARNAME):
     return pressure
 
 
-# PURPOSE: read reanalysis invariant parameters (geopotential,lat,lon)
+# PURPOSE: read reanalysis invariant parameters for geopotential
 def ncdf_invariant(FILENAME, ZNAME):
     # get logger
     logger = logging.getLogger(__name__)

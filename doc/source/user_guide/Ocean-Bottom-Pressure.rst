@@ -44,6 +44,7 @@ Framework
     :align: center
 
     digraph {
+        bgcolor="transparent";
         E [label="ECCO Ocean Bottom Pressure"
             fontname="Lato"
             fontsize=11
