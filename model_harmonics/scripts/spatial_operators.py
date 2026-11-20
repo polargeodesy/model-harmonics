@@ -50,7 +50,8 @@ PROGRAM DEPENDENCIES:
     spatial.py: spatial data class for reading, writing and processing data
 
 UPDATE HISTORY:
-    Updated 05/2026: add option to concatenate data into a single file
+    Updated 11/2026: add option to flatten input data along a single dimension
+    Updated 05/2026: add operation to concatenate data into a single file
     Updated 06/2025: add option to mask data with subsequent files
     Updated 05/2023: use pathlib to define and operate on paths
     Updated 03/2023: updated inputs to spatial from_file function
@@ -135,6 +136,7 @@ def spatial_operators(
     HEADER=None,
     DATAFORM=None,
     DATE=False,
+    FLATTEN=False,
     MODE=None,
 ):
     # number of input spatial files
@@ -185,6 +187,11 @@ def spatial_operators(
                 nlon=nlon,
             )
 
+    # flatten data into a list along a dimension
+    if FLATTEN:
+        dinput = [s for i in dinput for s in i]
+        n_files = len(dinput)
+
     # operate on input files
     if OPERATION == 'add':
         output = dinput[0].zeros_like()
@@ -225,9 +232,11 @@ def spatial_operators(
         output = output.scale(1.0 / n_files)
     elif OPERATION == 'error':
         mean = dinput[0].zeros_like()
+        indices = slice(0, len(dinput[0]))
         for i in range(n_files):
             # perform operation
-            mean = mean.offset(dinput[i].data)
+            subset = dinput[i].index(indices)
+            mean = mean.offset(subset.data)
             # update mask with values from file
             mean.replace_invalid(mean.fill_value, mask=dinput[i].mask)
         # convert from total to mean
@@ -236,7 +245,8 @@ def spatial_operators(
         output = dinput[0].zeros_like()
         for i in range(n_files):
             # perform operation
-            temp = dinput[i].offset(-mean.data)
+            subset = dinput[i].index(indices)
+            temp = subset.offset(-mean.data)
             output = output.offset(temp.power(2.0).data)
         # update mask with values from mean
         output.replace_invalid(output.fill_value, mask=mean.mask)
@@ -251,6 +261,14 @@ def spatial_operators(
             output.replace_invalid(output.fill_value, mask=dinput[i].mask)
         # convert from total in quadrature to RMS
         output = output.scale(1.0 / n_files).power(0.5)
+    elif OPERATION == 'quadsum' and len(dinput) == 1:
+        # calculate quadratic sum of differences
+        output = dinput[0].sum(power=2.0)
+        output = (output / len(dinput[0])).power(0.5)
+    elif OPERATION == 'quadsum' and len(dinput) == 2:
+        # calculate quadratic sum of differences
+        output = (dinput[1] - dinput[0].data).sum(power=2.0)
+        output = (output / len(dinput[0])).power(0.5)
     elif OPERATION == 'concat':
         # concatenate data into a single file
         output = dinput[0].copy()
@@ -264,9 +282,11 @@ def spatial_operators(
             output.replace_invalid(output.fill_value, mask=dinput[i].mask)
 
     # copy date variables
-    if DATE and (OPERATION != 'concat'):
+    if DATE and OPERATION not in ('concat', 'quadsum'):
         output.time = np.copy(dinput[0].time)
         output.month = np.copy(dinput[0].month)
+    elif OPERATION in ('concat', 'quadsum'):
+        DATE = False
 
     # attributes for output files
     attr = get_attributes(dinput[0])
@@ -313,6 +333,7 @@ def arguments():
         'mean',
         'error',
         'RMS',
+        'quadsum',
         'concat',
         'mask',
     ]
@@ -371,6 +392,14 @@ def arguments():
         action='store_true',
         help='Input and output files have date information',
     )
+    # flatten input data
+    parser.add_argument(
+        '--flatten',
+        '-f',
+        default=False,
+        action='store_true',
+        help='Flatten input data along a single dimension',
+    )
     # print information about each output file
     parser.add_argument(
         '--verbose',
@@ -414,6 +443,7 @@ def main():
         HEADER=args.header,
         DATAFORM=args.format,
         DATE=args.date,
+        FLATTEN=args.flatten,
         MODE=args.mode,
     )
 

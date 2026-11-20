@@ -322,7 +322,6 @@ def ATL15_uplift(
     attributes['dhdt_gia']['coordinates'] = 'y x'
     attributes['dhdt_gia']['units'] = 'm/yr'
     attributes['dhdt_gia']['grid_mapping'] = 'crs'
-    attributes['dhdt_gia']['_FillValue'] = fill_value
 
     # create projection variable
     output_data['crs'] = np.byte()

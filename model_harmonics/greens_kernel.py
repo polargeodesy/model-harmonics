@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 greens_kernel.py
-Written by Tyler Sutterley (05/2026)
+Written by Tyler Sutterley (11/2026)
 
 Calculate a Green's function kernel for a given set of Love Numbers
 
@@ -20,6 +20,7 @@ OPTIONS:
 
         - 'u': vertical displacement (m/kg)
         - 'v': horizontal displacement (m/kg)
+    ASYMPTOTE: Asymptotic value for the Green's function at infinite degree
 
 OUTPUTS:
     X: X-coordinates of the kernel (meters)
@@ -37,13 +38,14 @@ PROGRAM DEPENDENCIES:
     legendre_polynomials.py: computes fully normalized Legendre polynomials
 
 UPDATE HISTORY:
+    Updated 11/2026: added option to use Kummer's transformation with
+        asymptotic values of the Love numbers (i.e. at infinite degree)
     Updated 05/2026: added option to calculate horizontal displacement kernel
     Updated 11/2024: use bessel function for points within cutoff distance
     Written 11/2024
 """
 
 import numpy as np
-import scipy.special
 import gravity_toolkit as gravtk
 
 
@@ -67,6 +69,8 @@ def greens_kernel(LMAX, SPACING=[], WIDTH=[], LOVE=None, **kwargs):
 
         - 'u': vertical displacement
         - 'v': horizontal displacement
+    ASYMPTOTE: float or None, default None
+        Asymptotic value for the Green's function at infinite degree
 
     Returns
     -------
@@ -79,6 +83,7 @@ def greens_kernel(LMAX, SPACING=[], WIDTH=[], LOVE=None, **kwargs):
     """
     # set default keyword arguments
     kwargs.setdefault('VARIABLE', 'u')
+    kwargs.setdefault('ASYMPTOTE', None)
     # get Earth parameters
     # radius of the Earth in meters
     rad_e = gravtk.units().rad_e / 100.0
@@ -93,6 +98,13 @@ def greens_kernel(LMAX, SPACING=[], WIDTH=[], LOVE=None, **kwargs):
     hl, kl, ll = LOVE
     # spherical harmonic degrees
     l = np.arange(LMAX + 1)
+    # use Kummer's transformation for Love numbers
+    if kwargs['VARIABLE'] == 'u' and kwargs['ASYMPTOTE'] is not None:
+        hinf = kwargs.get('ASYMPTOTE', -5.005)
+        dh = hl[: (LMAX + 1)] - hinf
+    elif kwargs['VARIABLE'] == 'v' and kwargs['ASYMPTOTE'] is not None:
+        linf = kwargs.get('ASYMPTOTE', 1.673)
+        dl = l * ll[: (LMAX + 1)] - linf
     # scale used to originally normalize the Legendre polynomials
     norm = np.sqrt(2.0 * l + 1)
     # grid spacing
@@ -121,20 +133,30 @@ def greens_kernel(LMAX, SPACING=[], WIDTH=[], LOVE=None, **kwargs):
                 radius = np.sqrt(dx * dy / np.pi)
                 # calculate distance at one half grid spacing
                 alpha = 0.5 * radius / rad_e
-                # Bessel function up to LMAX
-                # multiply by 2.0 to account for the adjustment
-                Pl = 2.0 * scipy.special.j0((l + 0.5) * alpha)
-                dPl = 2.0 * scipy.special.j1((l + 0.5) * alpha)
             else:
                 # angular distance from central point
-                alpha = np.cos(D[j, i] / rad_e)
-                # Legendre polynomials up to LMAX
-                P, dP = gravtk.legendre_polynomials(LMAX, alpha)
-                # unnormalizing Legendre polynomials
-                Pl = np.squeeze(P) / norm
-                dPl = np.squeeze(dP) / norm
+                alpha = D[j, i] / rad_e
+            # Legendre polynomials up to LMAX
+            P, dP = gravtk.legendre_polynomials(LMAX, np.cos(alpha))
+            # unnormalizing Legendre polynomials
+            Pl = np.squeeze(P) / norm
+            dPl = np.squeeze(dP) / norm
+            # half angle for calculating asymptotic values
+            half_angle = alpha / 2.0
+            # calculate Legendre asymptotic values from Farrell (1972)
+            Pinf = np.divide(1.0, 2.0 * np.sin(half_angle))
+            dPinf = -np.divide(
+                np.cos(half_angle) * (1.0 + 2.0 * np.sin(half_angle)),
+                2.0 * np.sin(half_angle) * (1.0 + np.sin(half_angle)),
+            )
             # calculate Green's function
-            if kwargs['VARIABLE'] == 'u':
+            if kwargs['VARIABLE'] == 'u' and kwargs['ASYMPTOTE'] is not None:
+                # calculate using asymptotic values
+                G[j, i] = scale * (hinf * Pinf + np.sum(dh * Pl))
+            elif kwargs['VARIABLE'] == 'v' and kwargs['ASYMPTOTE'] is not None:
+                # calculate using asymptotic values
+                G[j, i] = scale * (linf * dPinf + np.sum((dl * dPl) / l))
+            elif kwargs['VARIABLE'] == 'u':
                 G[j, i] = scale * np.sum(hl * Pl)
             elif kwargs['VARIABLE'] == 'v':
                 G[j, i] = scale * np.sum(ll * dPl)
